@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Notes Detection</title>
+    <link rel="stylesheet" type="text/css" href="/static/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/index.js"></script>
+</head>
+<body>
+    <div class="app">
+        <div class="app-header">
+            <p class="title-wrap">Indian Currency Notes Detection - YOLO</p>
+            <div class="pre-img">
+                <span>
+                    <img id="imagebox" src="" alt="Uploaded Image"/>
+                </span>
+            </div>
+            <form>
+                <input id="imageinput" type="file" name="image" onchange="readUrl(this)">
+            </form>
+            <button id="sendbutton">Send</button>
+            <div class="loading">
+                <div class="percent">100%</div>
+                <div class="text">Completed!</div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
