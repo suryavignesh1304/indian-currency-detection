@@ -17,6 +17,8 @@ $(document).ready(function() {
             processData: false,
             beforeSend: function() {
                 $('.loading').show();
+                $('.percent').text('0%');
+                $('.text').text('Uploading...');
             },
             success: function(response) {
                 $('.loading').hide();

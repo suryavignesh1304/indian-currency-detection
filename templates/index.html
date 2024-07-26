@@ -13,17 +13,15 @@
         <div class="app-header">
             <p class="title-wrap">Indian Currency Notes Detection - YOLO</p>
             <div class="pre-img">
-                <span>
-                    <img id="imagebox" src="" alt="Uploaded Image"/>
-                </span>
+                <img id="imagebox" src="" alt="Uploaded Image"/>
             </div>
             <form>
-                <input id="imageinput" type="file" name="image" onchange="readUrl(this)">
+                <input id="imageinput" type="file" name="image" accept="image/*" onchange="readUrl(this)">
             </form>
             <button id="sendbutton">Send</button>
-            <div class="loading">
-                <div class="percent">100%</div>
-                <div class="text">Completed!</div>
+            <div class="loading" style="display: none;">
+                <div class="percent">0%</div>
+                <div class="text">Uploading...</div>
                 <div class="progress-bar">
                     <div class="progress"></div>
                 </div>

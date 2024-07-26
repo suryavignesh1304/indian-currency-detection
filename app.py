@@ -11,7 +11,6 @@ from yolo_detection import run_model
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route('/detectObject', methods=['POST'])
 def mask_image():
     try:
@@ -25,39 +24,28 @@ def mask_image():
             return jsonify({'error': 'No selected file'}), 400
 
         file_stream = io.BytesIO(file.read())
-        npimg = np.frombuffer(file_stream.read(), np.uint8)
+        npimg = np.frombuffer(file_stream.getvalue(), np.uint8)
         img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)[:, :, ::-1]  # OpenCV image (BGR to RGB)
 
         img, text = run_model(img)
         app.logger.info(f"{text} This is from app.py")
 
-        if text.lower() == "image contains":
-            text = ""
-
-        if len(text) == 0:
-            text = "Reload the page and try with another better image"
+        if not text:
+            text = "No currency note detected. Please try with another image."
 
         bufferedBytes = io.BytesIO()
         img_base64 = Image.fromarray(img)
         img_base64.save(bufferedBytes, format="JPEG")
-        img_base64 = base64.b64encode(bufferedBytes.getvalue())
+        img_base64 = base64.b64encode(bufferedBytes.getvalue()).decode('utf-8')
 
-        return jsonify({'status': str(img_base64), 'englishmessage': text})
+        return jsonify({'status': img_base64, 'englishmessage': text})
     except Exception as e:
         app.logger.error(f"Error processing image: {e}")
         return jsonify({'error': 'Failed to process the image'}), 500
 
-
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-    app.logger.info("log: got at test")
-    return jsonify({'status': 'success'})
-
-
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True, threaded=True)
